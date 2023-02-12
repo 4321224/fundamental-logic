@@ -22,3 +22,30 @@ shoes = [[0, 21],
          [1, 23]]
 the output should be false.
 */
+
+function pairOfShoes(shoes) {
+    for(var i = 0; i < shoes.length; i++){
+      if(shoes[i][0] == 0){
+        shoes[i][0] = -1
+      }
+    } 
+    const objectify = (array) => {
+      return array.reduce(function(p,c){
+        p[c[1]] = (p[c[1]] != undefined ? p[c[1]] : 0) + c[0]
+        return p
+      }, {})
+    }
+    var p = objectify(shoes)
+    for(var x in p) {
+      if(p[x] != 0){
+        return false
+      }
+    }
+    return true
+  }
+
+  shoes = [[0, 21], 
+           [1, 23], 
+           [1, 21], 
+           [0, 23]];
+console.log(pairOfShoes(shoes));  
