@@ -16,10 +16,54 @@ You may assume that the board passed in is valid in the context of a game of Tic
 */
 
 function isSolved(board) {
-  board = board.join("-").replace(/,/g, "");
-  if (/222|2...2...2|2....2....2|2..2..2/.test(board)) return 2;
-  if (/111|1...1...1|1....1....1|1..1..1/.test(board)) return 1;
-  if (/0/.test(board)) return -1;
+  // Check rows
+  for (let i = 0; i < 3; i++) {
+    if (
+      board[i][0] !== 0 &&
+      board[i][0] === board[i][1] &&
+      board[i][1] === board[i][2]
+    ) {
+      return board[i][0];
+    }
+  }
+
+  // Check columns
+  for (let j = 0; j < 3; j++) {
+    if (
+      board[0][j] !== 0 &&
+      board[0][j] === board[1][j] &&
+      board[1][j] === board[2][j]
+    ) {
+      return board[0][j];
+    }
+  }
+
+  // Check diagonals
+  if (
+    board[0][0] !== 0 &&
+    board[0][0] === board[1][1] &&
+    board[1][1] === board[2][2]
+  ) {
+    return board[0][0];
+  }
+  if (
+    board[0][2] !== 0 &&
+    board[0][2] === board[1][1] &&
+    board[1][1] === board[2][0]
+  ) {
+    return board[0][2];
+  }
+
+  // Check if the board is full
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (board[i][j] === 0) {
+        return -1;
+      }
+    }
+  }
+
+  // It's a draw
   return 0;
 }
 
